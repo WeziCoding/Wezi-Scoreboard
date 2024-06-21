@@ -4,7 +4,6 @@
 # Installation
 - https://discord.com/invite/Da9EM2Dgf3
 
--
 
 ## Previews
 

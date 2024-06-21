@@ -13,6 +13,14 @@ CreateThread(function()
     end)
 end)
 
+local close = function()
+    if Config.Animation then
+        if IsPedUsingScenario(PlayerPedId(), "WORLD_HUMAN_CLIPBOARD") then
+            ClearPedTasks(PlayerPedId())
+        end
+    end
+end
+
 
 local sec = function(data)
     local options = {{
@@ -68,11 +76,7 @@ local sec = function(data)
         title = data.Name,
         menu = 'tdsdasdsadsa',
         onExit = function()
-            if Config.Animation then
-                if IsPedUsingScenario(PlayerPedId(), "WORLD_HUMAN_CLIPBOARD") then
-                    ClearPedTasks(PlayerPedId())
-                end
-            end
+            close()
         end,
         options = options        
       })
@@ -106,7 +110,10 @@ function Menu()
     Elements[#Elements + 1] = {
         icon = "fa-solid fa-xmark",
         title = "Close",
-        value = "close"
+        onSelect = function()
+            close()
+            lib.hideContext()
+        end
     }
 
         lib.registerContext({
@@ -114,11 +121,7 @@ function Menu()
             title = header,
             menu = 'tdsdasdsadsa',
             onExit = function()
-                if Config.Animation then
-                    if IsPedUsingScenario(PlayerPedId(), "WORLD_HUMAN_CLIPBOARD") then
-                        ClearPedTasks(PlayerPedId())
-                    end
-                end
+                close()
             end,
             options = Elements,
             onSelect = function(args)
