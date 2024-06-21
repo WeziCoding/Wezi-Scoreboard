@@ -9,6 +9,8 @@
 
 Config = {}
 
+Config.Animation = true --- enables an animation while using the scoreboard
+
 Config.Command = 'showsc'
 
 Config.Key = {

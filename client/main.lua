@@ -67,6 +67,13 @@ local sec = function(data)
         id = 'das',
         title = data.Name,
         menu = 'tdsdasdsadsa',
+        onExit = function()
+            if Config.Animation then
+                if IsPedUsingScenario(PlayerPedId(), "WORLD_HUMAN_CLIPBOARD") then
+                    ClearPedTasks(PlayerPedId())
+                end
+            end
+        end,
         options = options        
       })
       lib.showContext('das')
@@ -106,8 +113,12 @@ function Menu()
             id = 'tdsdasdsadsa',
             title = header,
             menu = 'tdsdasdsadsa',
-            onBack = function()
-              print('Went back! 222')
+            onExit = function()
+                if Config.Animation then
+                    if IsPedUsingScenario(PlayerPedId(), "WORLD_HUMAN_CLIPBOARD") then
+                        ClearPedTasks(PlayerPedId())
+                    end
+                end
             end,
             options = Elements,
             onSelect = function(args)
@@ -122,7 +133,14 @@ if Config.Key.toggle then
 RegisterKeyMapping("showsc", "Open Scoreboard", "keyboard", Config.Key.key)
 end
 
-RegisterCommand('showsc', function(source, args, rawCommand) print('fs') Menu() end, false)
+RegisterCommand('showsc', function(source, args, rawCommand) 
+    if Config.Animation then
+        TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_CLIPBOARD", 0, true);
+        Menu() 
+    else
+        Menu() 
+    end
+end, false)
 
 
 
