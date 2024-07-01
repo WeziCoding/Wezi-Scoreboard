@@ -9,6 +9,8 @@
 
 Config = {}
 
+Config.Framework = 'esx' -- 'esx' (for esx) 'qb' or 'qbox' (for qbcore or qbox)
+
 Config.Animation = true --- enables an animation while using the scoreboard
 
 Config.Command = 'showsc'

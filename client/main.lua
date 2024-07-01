@@ -6,9 +6,28 @@
 --- Support/Dev Discord https://discord.com/invite/Da9EM2Dgf3
 --- Support/Dev Discord https://discord.com/invite/Da9EM2Dgf3
 
+
+local ESX
+local QBCore
+if Config.Framework == 'esx' then
+    ESX = exports["es_extended"]:getSharedObject()
+elseif Config.Framework == 'qb' or 'qbcore' or 'qbox' then
+    QBCore = exports['qb-core']:GetCoreObject()
+end
+
+
+local TriggerCallback = function(...)
+    if Config.Framework == 'esx' then
+        local data2 = 'data'
+        ESX.TriggerServerCallback(...)
+    elseif Config.Framework == 'qb' or 'qbcore' or 'qbox' then
+        QBCore.Functions.TriggerCallback(...)
+    end
+end
+
 local ServerSlots = 48
 CreateThread(function()
-    ESX.TriggerServerCallback("wezi-scoreboard:GetSlotCount", function(SlotCount)
+    TriggerCallback("wezi-scoreboard:GetSlotCount", function(SlotCount)
         ServerSlots = SlotCount
     end)
 end)
@@ -85,7 +104,7 @@ end
 
 function Menu()
     local header 
-    ESX.TriggerServerCallback("wezi-Scoreboard:GetPlayers", function(SentPlayers, PlayerCount)
+    TriggerCallback("wezi-Scoreboard:GetPlayers", function(SentPlayers, PlayerCount)
     local Elements = {}
 
     if Config.Options.Header.toggle then
