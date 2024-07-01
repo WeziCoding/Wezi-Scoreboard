@@ -18,7 +18,6 @@ end
 
 local TriggerCallback = function(...)
     if Config.Framework == 'esx' then
-        local data2 = 'data'
         ESX.TriggerServerCallback(...)
     elseif Config.Framework == 'qb' or 'qbcore' or 'qbox' then
         QBCore.Functions.TriggerCallback(...)
